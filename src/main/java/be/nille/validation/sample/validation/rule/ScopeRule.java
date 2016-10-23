@@ -5,14 +5,13 @@
  */
 package be.nille.validation.sample.validation.rule;
 
-import be.nille.validation.sample.validation.api.ValidationRule;
 import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Niels Holvoet
  */
-public class ScopeRule extends ValidationRule {
+public class ScopeRule{
     
     @NotNull(message = "scope.required")
     private final String scope;

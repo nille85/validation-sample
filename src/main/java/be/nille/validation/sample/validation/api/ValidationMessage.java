@@ -5,6 +5,7 @@
  */
 package be.nille.validation.sample.validation.api;
 
+import javax.validation.ConstraintViolation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,10 @@ public class ValidationMessage {
     
     private String description;
     private Object invalidValue;
+    
+    ValidationMessage(final ConstraintViolation<Object> constraint){
+        this.description = constraint.getMessage();
+        this.invalidValue = constraint.getInvalidValue();
+    }
     
 }

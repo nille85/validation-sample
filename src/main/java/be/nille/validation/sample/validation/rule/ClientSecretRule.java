@@ -5,7 +5,6 @@
  */
 package be.nille.validation.sample.validation.rule;
 
-import be.nille.validation.sample.validation.api.ValidationRule;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ import lombok.Getter;
  * @author Niels Holvoet
  */
 @Getter
-public class ClientSecretRule extends ValidationRule {
+public class ClientSecretRule {
     
     @NotNull(message = "clientSecret.required")
     private final String clientSecret;

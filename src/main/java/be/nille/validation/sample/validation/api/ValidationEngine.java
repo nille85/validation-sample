@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,44 +21,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ValidationEngine {
     
-    List<ValidationRule> rules;
-    
+    final List<ValidationObject> objects;
+   
     public ValidationEngine(){
-        rules = new ArrayList<>();
+        objects = new ArrayList<>();
     }
     
-    public void addRule(ValidationRule rule){
-        rules.add(rule);
+    public void addObject(Object object){
+        ValidationObject validationObject = new ValidationObject(object);
+        objects.add(validationObject);
     }
     
-    public void fireRules(){
+    public void validate(){
         List<ValidationMessage> allValidationMessages = new ArrayList<>();
-        for(ValidationRule rule : rules){
-            List<ValidationMessage> validationMessages = validateRule(rule);
+        for(ValidationObject object : objects){
+            List<ValidationMessage> validationMessages = object.validate();
             allValidationMessages.addAll(validationMessages);
         }
         if(!allValidationMessages.isEmpty()){
             throw new ValidationException(allValidationMessages);
-        }
-        
-    }
-    
-    private List<ValidationMessage> validateRule(final ValidationRule rule){
-         Set<ConstraintViolation<ValidationRule>> constraints = rule.validate();
-         List<ValidationMessage> validationMessages = getValidationMessagesFromConstraints(constraints);
-         return validationMessages;
-    }
-    
-    private List<ValidationMessage> getValidationMessagesFromConstraints( Set<ConstraintViolation<ValidationRule>> constraints){
-        List<ValidationMessage> validationMessages = new ArrayList<>();
-        for(ConstraintViolation<ValidationRule> constraint : constraints){
-            ValidationMessage validationMessage = new ValidationMessage();
-            validationMessage.setDescription(constraint.getMessage());
-            validationMessage.setInvalidValue(constraint.getInvalidValue());
-            log.debug("Validation occurred: " + validationMessage.toString());
-            validationMessages.add(validationMessage);
-        }
-        return validationMessages;
+        }    
     }
     
 }

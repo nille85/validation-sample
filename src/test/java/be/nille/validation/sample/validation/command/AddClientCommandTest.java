@@ -17,8 +17,7 @@ import org.junit.Test;
 @Slf4j
 public class AddClientCommandTest {
     
-    
-    
+
  
     @Test
     public void createClient(){

@@ -25,9 +25,9 @@ public class AddScopeData {
     
     public void validate() {
         ValidationEngine engine = new ValidationEngine();
-        engine.addRule(new ClientIdRule(clientId));
-        engine.addRule(new ScopeRule(scope));
-        engine.fireRules();
+        engine.addObject(new ClientIdRule(clientId));
+        engine.addObject(new ScopeRule(scope));
+        engine.validate();
     }
     
 }

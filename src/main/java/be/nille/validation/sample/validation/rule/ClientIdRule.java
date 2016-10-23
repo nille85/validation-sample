@@ -5,7 +5,6 @@
  */
 package be.nille.validation.sample.validation.rule;
 
-import be.nille.validation.sample.validation.api.ValidationRule;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -15,7 +14,7 @@ import lombok.Getter;
  * @author Niels Holvoet
  */
 @Getter
-public class ClientIdRule extends ValidationRule {
+public class ClientIdRule {
     
     @NotNull(message = "clientId.required")
     @Size(min = 5, message = "clientId.size")

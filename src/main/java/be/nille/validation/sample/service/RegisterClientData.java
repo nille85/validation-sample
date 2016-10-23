@@ -32,9 +32,9 @@ public class RegisterClientData {
     
     public void validate() {
         ValidationEngine engine = new ValidationEngine();
-        engine.addRule(new ClientIdRule(clientId));
-        engine.addRule(new ClientSecretRule(clientSecret));
-        engine.fireRules();
+        engine.addObject(new ClientIdRule(clientId));
+        engine.addObject(new ClientSecretRule(clientSecret));
+        engine.validate();
     }
     
    

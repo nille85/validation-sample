@@ -7,17 +7,10 @@ package be.nille.validation.sample.validation.rule;
 
 import be.nille.validation.sample.validation.rule.ClientSecretRule;
 import be.nille.validation.sample.validation.rule.ClientIdRule;
-import be.nille.validation.sample.validation.api.ValidationRule;
 import be.nille.validation.sample.service.RegisterClientData;
 import be.nille.validation.sample.validation.api.ValidationEngine;
 import be.nille.validation.sample.validation.api.ValidationException;
 import be.nille.validation.sample.validation.api.ValidationMessage;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import javax.validation.ConstraintViolation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -36,11 +29,11 @@ public class ValidationRuleTest {
         //clientCommand.setClientSecret("clientSecret");
 
         ValidationEngine engine = new ValidationEngine();
-        engine.addRule(new ClientIdRule(clientCommand.getClientId()));
-        engine.addRule(new ClientSecretRule(clientCommand.getClientSecret()));
+        engine.addObject(new ClientIdRule(clientCommand.getClientId()));
+        engine.addObject(new ClientSecretRule(clientCommand.getClientSecret()));
 
         try {
-            engine.fireRules();
+            engine.validate();
         } catch (ValidationException ex) {
             for (ValidationMessage message : ex.getMessages()) {
                 log.debug(message.toString());
