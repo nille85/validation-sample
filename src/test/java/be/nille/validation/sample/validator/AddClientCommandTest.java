@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.service;
+package be.nille.validation.sample.validator;
 
+import be.nille.validation.sample.validator.api.ValidationMessage;
+import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -21,33 +23,45 @@ import org.junit.Test;
  * @author Niels Holvoet
  */
 @Slf4j
-public class AddClientValidatorTest {
+public class AddClientCommandTest {
     
-    private static  Validator validator;
     
-    @Before
-    public void setup(){
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
     
+ 
     @Test
     public void createClient(){
         AddClientCommand command = new AddClientCommand();
         command.setClientId("clientid");
         command.setClientSecret("secret");
-        Set<ConstraintViolation<AddClientCommand>> constraints = validator.validate(command);
-        assertTrue(constraints.isEmpty());
+        List<ValidationMessage> messages = command.validate();
+        assertTrue(messages.isEmpty());
         
     }
     
     @Test
     public void createClientWithoutClientId(){
         AddClientCommand command = new AddClientCommand();
-      
         command.setClientSecret("secret");
-        Set<ConstraintViolation<AddClientCommand>> constraints = validator.validate(command);
-        assertFalse(constraints.isEmpty());
+        List<ValidationMessage> messages = command.validate();
+        assertFalse(messages.isEmpty());
+        printMessages(messages);
         
+    }
+    
+    @Test
+    public void createClientWithoutClientIdToShort(){
+        AddClientCommand command = new AddClientCommand();
+        command.setClientId("id");
+        command.setClientSecret("secret");
+        List<ValidationMessage> messages = command.validate();
+        assertFalse(messages.isEmpty());
+        printMessages(messages);
+        
+    }
+    
+    private void printMessages(List<ValidationMessage> messages){
+        for(ValidationMessage message : messages){
+            log.debug(message.toString());
+        }
     }
 }

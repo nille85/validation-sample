@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.service;
+package be.nille.validation.sample.validator.api;
+
+import java.util.List;
 
 /**
  *
  * @author Niels Holvoet
  */
-public class AddClientValidator {
+public interface Validatable {
+    
+    List<ValidationMessage> validate();
     
 }

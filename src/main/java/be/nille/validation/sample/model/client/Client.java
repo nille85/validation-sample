@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -17,13 +18,14 @@ import lombok.Getter;
 @Getter
 public class Client {
     
-    private final Credentials credentials;
+    private final String id;
+    @Setter
+    private String secret;
     private List<Scope> scopes;
     
     public Client(final String id, final String secret){
-        credentials = new Credentials();
-        credentials.setId(id);
-        credentials.setSecret(secret);
+        this.id = id;
+        this.secret = secret;
         scopes = new ArrayList<>();
     }
     

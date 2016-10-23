@@ -23,8 +23,7 @@ public class ClientService {
     }
     
     
-    public void addClient(final AddClientCommand clientCommand){
-        final Client client = clientCommand.toClient();
+    public void addClient(final Client client){
         clients.add(client);
     }
     

@@ -18,8 +18,8 @@ public class ClientTest {
     @Test
     public void create(){
         Client client = new Client("clientid", "secret");
-        assertEquals("clientid", client.getCredentials().getId());
-        assertEquals("secret", client.getCredentials().getSecret());
+        assertEquals("clientid", client.getId());
+        assertEquals("secret", client.getSecret());
     }
     
     @Test

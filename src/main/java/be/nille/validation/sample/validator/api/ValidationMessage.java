@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.model.client;
+package be.nille.validation.sample.validator.api;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,11 +17,9 @@ import lombok.ToString;
 @Getter
 @Setter(AccessLevel.PACKAGE)
 @ToString
-public class Credentials {
+public class ValidationMessage {
     
-    private String id;
-    private String secret;
-    
-    Credentials(){}
+    private String description;
+    private Object invalidValue;
     
 }
