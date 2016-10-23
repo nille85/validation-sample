@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.validator.rule;
+package be.nille.validation.sample.validation.rule;
 
-import be.nille.validation.sample.validator.api.ValidationRule;
+import be.nille.validation.sample.validation.api.ValidationRule;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class ScopeRule extends ValidationRule {
     
     @NotNull(message = "scope.required")
-    private String scope;
+    private final String scope;
     
     public ScopeRule(final String scope){
         this.scope = scope;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.validator.api;
+package be.nille.validation.sample.validation.api;
 
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -17,7 +17,7 @@ import javax.validation.ValidatorFactory;
  */
 public abstract class ValidationRule{
     
-    private static final  Validator validator;
+    private static final Validator validator;
     
     static {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

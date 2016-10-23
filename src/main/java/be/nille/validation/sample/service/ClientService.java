@@ -6,8 +6,8 @@
 package be.nille.validation.sample.service;
 
 import be.nille.validation.sample.model.client.Client;
-import java.util.LinkedList;
-import java.util.List;
+import be.nille.validation.sample.model.client.ClientRepository;
+import be.nille.validation.sample.model.client.Scope;
 
 /**
  *
@@ -15,20 +15,22 @@ import java.util.List;
  */
 public class ClientService {
     
-    private final List<Client> clients;
+    private final ClientRepository repository;
     
-    
-    public ClientService(){
-        clients = new LinkedList<>();
+    public ClientService(final ClientRepository repository){
+        this.repository = repository;
     }
     
-    
-    public void addClient(final Client client){
-        clients.add(client);
+    public void registerClient(final RegisterClientData registerClientData){
+        registerClientData.validate();
+        repository.save(registerClientData.toClient());
     }
     
-    public List<Client> getClients(){
-        return clients;
+    public void addScope(final AddScopeData addScopeData){
+        addScopeData.validate();
+        Client client = repository.findById(addScopeData.getClientId());
+        client.addScope(new Scope("read"));
+        repository.save(client);
     }
     
 }

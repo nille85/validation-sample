@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.validator.api;
-
-import java.util.List;
+package be.nille.validation.sample.model;
 
 /**
  *
  * @author Niels Holvoet
  */
-public interface Validatable {
+public class NoDataFoundException extends RuntimeException {
     
-    List<ValidationMessage> validate();
-    
+    public NoDataFoundException(final String message){
+        super(message);
+    }
 }

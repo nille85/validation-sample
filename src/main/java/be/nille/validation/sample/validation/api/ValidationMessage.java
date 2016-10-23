@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.validator.api;
+package be.nille.validation.sample.validation.api;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.nille.validation.sample.validator.api;
+package be.nille.validation.sample.validation.api;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author Niels Holvoet
  */
+@Slf4j
 public class ValidationEngine {
     
     List<ValidationRule> rules;
@@ -26,14 +28,22 @@ public class ValidationEngine {
         rules.add(rule);
     }
     
-    public List<ValidationMessage> fireRules(){
+    public void fireRules(){
         List<ValidationMessage> allValidationMessages = new ArrayList<>();
         for(ValidationRule rule : rules){
-            Set<ConstraintViolation<ValidationRule>> constraints = rule.validate();
-            List<ValidationMessage> validationMessages = getValidationMessagesFromConstraints(constraints);
+            List<ValidationMessage> validationMessages = validateRule(rule);
             allValidationMessages.addAll(validationMessages);
         }
-        return allValidationMessages;
+        if(!allValidationMessages.isEmpty()){
+            throw new ValidationException(allValidationMessages);
+        }
+        
+    }
+    
+    private List<ValidationMessage> validateRule(final ValidationRule rule){
+         Set<ConstraintViolation<ValidationRule>> constraints = rule.validate();
+         List<ValidationMessage> validationMessages = getValidationMessagesFromConstraints(constraints);
+         return validationMessages;
     }
     
     private List<ValidationMessage> getValidationMessagesFromConstraints( Set<ConstraintViolation<ValidationRule>> constraints){
@@ -42,6 +52,7 @@ public class ValidationEngine {
             ValidationMessage validationMessage = new ValidationMessage();
             validationMessage.setDescription(constraint.getMessage());
             validationMessage.setInvalidValue(constraint.getInvalidValue());
+            log.debug("Validation occurred: " + validationMessage.toString());
             validationMessages.add(validationMessage);
         }
         return validationMessages;
