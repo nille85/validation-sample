@@ -27,9 +27,17 @@ public class ValidationEngine {
         objects = new ArrayList<>();
     }
     
-    public void addObject(Object object){
+    public ValidationEngine addObject(Object object){
         ValidationObject validationObject = new ValidationObject(object);
         objects.add(validationObject);
+        return this;
+    }
+    
+    public ValidationEngine addObjects(Object ... objects){
+        for(Object object : objects){
+            addObject(object);
+        }
+        return this;
     }
     
     public void validate(){

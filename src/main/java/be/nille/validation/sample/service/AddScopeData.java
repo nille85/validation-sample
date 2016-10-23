@@ -24,10 +24,10 @@ public class AddScopeData {
 
     
     public void validate() {
-        ValidationEngine engine = new ValidationEngine();
-        engine.addObject(new ClientIdRule(clientId));
-        engine.addObject(new ScopeRule(scope));
-        engine.validate();
+        new ValidationEngine()
+                .addObjects(new ClientIdRule(clientId),new ScopeRule(scope))
+                .validate();
+        
     }
     
 }
